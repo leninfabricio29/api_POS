@@ -1,0 +1,228 @@
+{
+  "info": {
+    "_postman_id": "pos-saas-mvp-flujo",
+    "name": "POS SaaS MVP - Flujo Completo",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Listar Áreas",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{access_token}}" }
+        ],
+        "url": { "raw": "{{base_url}}/areas/", "host": ["{{base_url}}"], "path": ["areas", ""] }
+      }
+    },
+    {
+      "name": "Crear Área",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{access_token}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"empresa\": 1,\n  \"name\": \"Salón Principal\"\n}"
+        },
+        "url": { "raw": "{{base_url}}/areas/", "host": ["{{base_url}}"], "path": ["areas", ""] }
+      }
+    },
+    {
+      "name": "Listar Mesas",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{access_token}}" }
+        ],
+        "url": { "raw": "{{base_url}}/tables/", "host": ["{{base_url}}"], "path": ["tables", ""] }
+      }
+    },
+    {
+      "name": "Crear Mesa",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{access_token}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"empresa\": 1,\n  \"code\": \"M01\",\n  \"area\": 1,\n  \"capacity\": 4\n}"
+        },
+        "url": { "raw": "{{base_url}}/tables/", "host": ["{{base_url}}"], "path": ["tables", ""] }
+      }
+    },
+    {
+      "name": "Login Usuario",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin123\"\n}"
+        },
+        "url": { "raw": "{{base_url}}/core/login/", "host": ["{{base_url}}"], "path": ["core", "login", ""] }
+      }
+    },
+    {
+      "name": "Listar Usuarios",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{access_token}}" }
+        ],
+        "url": { "raw": "{{base_url}}/core/usuarios/", "host": ["{{base_url}}"], "path": ["core", "usuarios", ""] }
+      }
+    },
+    {
+      "name": "Detalle Usuario",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{access_token}}" }
+        ],
+        "url": { "raw": "{{base_url}}/core/usuarios/1/", "host": ["{{base_url}}"], "path": ["core", "usuarios", "1", ""] }
+      }
+    },
+    {
+      "name": "Crear Empleado",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{access_token}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"empleado1\",\n  \"email\": \"empleado1@empresa.com\",\n  \"first_name\": \"Empleado\",\n  \"last_name\": \"Uno\",\n  \"empresa\": 1,\n  \"rol\": \"EMPLOYEE\",\n  \"password\": \"empleado123\"\n}"
+        },
+        "url": { "raw": "{{base_url}}/core/usuarios/crear/", "host": ["{{base_url}}"], "path": ["core", "usuarios", "crear", ""] }
+      }
+    },
+    {
+      "name": "Deshabilitar Empleado",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{access_token}}" }
+        ],
+        "url": { "raw": "{{base_url}}/core/usuarios/1/deshabilitar/", "host": ["{{base_url}}"], "path": ["core", "usuarios", "1", "deshabilitar", ""] }
+      }
+    },
+    {
+      "name": "Abrir Caja",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"user\": 1,\n  \"opened_at\": \"2025-08-19T08:00:00Z\",\n  \"opening_amount\": 100000\n}"
+        },
+        "url": { "raw": "{{base_url}}/cash-sessions/", "host": ["{{base_url}}"], "path": ["cash-sessions",""] }
+      }
+    },
+    {
+      "name": "Crear Pedido",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"table\": 1,\n  \"customer\": null,\n  \"waiter\": 1,\n  \"notes\": \"Sin cebolla\",\n  \"items\": [\n    {\n      \"product\": 1,\n      \"quantity\": 2\n    },\n    {\n      \"product\": 2,\n      \"quantity\": 1\n    }\n  ]\n}"
+        },
+        "url": { "raw": "{{base_url}}/orders/", "host": ["{{base_url}}"], "path": ["orders",""] }
+      }
+    },
+    {
+      "name": "Actualizar Pedido (modificar/eliminar items)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"table\": 1,\n  \"customer\": null,\n  \"waiter\": 1,\n  \"notes\": \"Sin cebolla\",\n  \"items\": [\n    {\n      \"product\": 1,\n      \"quantity\": 1\n    }\n  ]\n}"
+        },
+        "url": { "raw": "{{base_url}}/orders/1/", "host": ["{{base_url}}"], "path": ["orders","1",""] }
+      }
+    },
+    {
+      "name": "Enviar Pedido a Cocina",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": { "raw": "{{base_url}}/orders/1/send_to_kitchen/", "host": ["{{base_url}}"], "path": ["orders","1","send_to_kitchen",""] }
+      }
+    },
+    {
+      "name": "Marcar Pedido como Listo",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": { "raw": "{{base_url}}/orders/1/mark_ready/", "host": ["{{base_url}}"], "path": ["orders","1","mark_ready",""] }
+      }
+    },
+    {
+      "name": "Ticket de Pedido",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": { "raw": "{{base_url}}/orders/1/ticket/", "host": ["{{base_url}}"], "path": ["orders","1","ticket",""] }
+      }
+    },
+    {
+      "name": "Registrar Venta (con cliente existente)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"order\": 1,\n  \"customer_name\": \"Juan Perez\",\n  \"subtotal\": 15000,\n  \"tax\": 1500,\n  \"total\": 16500,\n  \"payments\": [\n    {\n      \"method\": \"CASH\",\n      \"amount\": 16500\n    }\n  ]\n}"
+        },
+        "url": { "raw": "{{base_url}}/sales/", "host": ["{{base_url}}"], "path": ["sales",""] }
+      }
+    },
+    {
+      "name": "Ticket de Venta",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": { "raw": "{{base_url}}/sales/1/ticket/", "host": ["{{base_url}}"], "path": ["sales","1","ticket",""] }
+      }
+    },
+    {
+      "name": "Cerrar Caja",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"closing_amount\": 120000\n}"
+        },
+        "url": { "raw": "{{base_url}}/cash-sessions/1/close/", "host": ["{{base_url}}"], "path": ["cash-sessions","1","close",""] }
+      }
+    }
+  ]
+}
